@@ -27,24 +27,24 @@
         <legend>To-do list</legend>
         Add Task:
         <!-- Bind input value with newTaskContent by v-model  -->
-        <input type="text" />
+        <input type="text" v-model="newTaskContent"/>
 
         <!-- Bind click event with addTask() by v-bind  -->
-        <button>add</button>
+        <button @click='addTask'>add</button>
         <ul>
           <!-- List todo in todos by v-for  -->
-          <li class="task">
+          <li class="task" v-for="todo in todos">
             <!-- Change isFinished of todo state when checkbox is checked or not by v-model  -->
-            <input type="checkbox" />
+            <input type="checkbox" v-model="todo.isFinished"/>
 
             <!-- Bind className:finished with todo.isFinished is true or false by v-bind  -->
-            <span class="task-text">
+            <span :class="['task-text',{'finished':todo.isFinished}]">
               <!-- Write todo content by mustache  -->
-              --
+              {{todo.content}}
             </span>
 
             <!-- Bind click event with removeTask() by v-bind  -->
-            <a href="#">(delete)</a>
+            <a href="#" @click="removeTask(todo)">(delete)</a>
           </li>
         </ul>
       </fieldset>
@@ -54,7 +54,7 @@
       let app = new Vue({
         el: "#app",
         data: {
-          newTaskContent: "",
+          newTaskContent: "123",
           todos: [{ content: "My first task", isFinished: false }]
         },
         methods: {
@@ -62,7 +62,6 @@
             if (this.newTaskContent === "") {
               return
             }
-
             let newTask = this.createTaskObject(this.newTaskContent)
 
             this.todos.push(newTask)
@@ -73,6 +72,7 @@
             return { content: _taskContent, isFinished: false }
           },
           removeTask(todo) {
+            console.log(todo);
             this.todos.splice(this.todos.indexOf(todo), 1)
           }
         }
