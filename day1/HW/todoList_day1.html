@@ -33,7 +33,7 @@
         <button @click='addTask'>add</button>
         <ul>
           <!-- List todo in todos by v-for  -->
-          <li class="task" v-for="todo in todos">
+          <li class="task" v-for="todo in todos" :key="todo">
             <!-- Change isFinished of todo state when checkbox is checked or not by v-model  -->
             <input type="checkbox" v-model="todo.isFinished"/>
 
